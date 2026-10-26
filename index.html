@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Business Analyst — Prototype</title>
+<style>
+:root{--bg:#f5f7fb;--panel:#fff;--ink:#182230;--muted:#6b7280;--line:#e6eaf0;--nav:#132238;--teal:#18a889;--blue:#4776e6;--amber:#f1a84b;--red:#d95f69;--green:#16856b}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink)}button,input,select{font:inherit}
+.app{display:grid;grid-template-columns:250px 1fr;min-height:100vh}.sidebar{background:var(--nav);color:#eaf0f8;padding:24px 16px;display:flex;flex-direction:column;gap:24px}.brand{display:flex;gap:11px;align-items:center;padding:0 8px}.logo{background:linear-gradient(135deg,#23c7a4,#4776e6);width:42px;height:42px;border-radius:13px;display:grid;place-items:center;font-weight:800;color:white;font-size:20px}.brand strong{display:block;font-size:15px}.brand small{color:#9fb0c6;font-size:11px}.nav-label{font-size:10px;letter-spacing:1.5px;color:#8ea0b8;padding:0 12px;margin-bottom:8px}.nav{display:grid;gap:5px}.nav button{border:0;color:#cbd5e1;background:transparent;text-align:left;padding:12px;border-radius:10px;cursor:pointer;display:flex;gap:12px;align-items:center}.nav button.active,.nav button:hover{background:#243850;color:white}.nav .ico{width:20px;text-align:center}.side-bottom{margin-top:auto;background:#1c3048;border:1px solid #34475d;border-radius:13px;padding:14px;font-size:12px;color:#b8c7d8;line-height:1.6}.side-bottom b{color:white}.main{padding:28px 32px;min-width:0}.topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:24px}.eyebrow{color:var(--teal);font-size:11px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase}.topbar h1{font-size:27px;margin:5px 0 4px;letter-spacing:-.7px}.subtitle{color:var(--muted);font-size:13px}.actions{display:flex;gap:10px;align-items:center}.btn{border:1px solid var(--line);background:white;border-radius:9px;padding:10px 13px;cursor:pointer;font-size:12px;font-weight:700;color:#344054}.btn.primary{background:var(--teal);border-color:var(--teal);color:white}.avatar{width:36px;height:36px;background:#d9f4ed;color:#087b62;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:12px}.notice{display:flex;gap:12px;align-items:center;background:#eaf8f4;border:1px solid #cceee4;color:#236b5b;padding:13px 16px;border-radius:12px;font-size:12px;margin-bottom:20px}.notice strong{color:#14594b}.notice .dot{width:8px;height:8px;background:var(--teal);border-radius:50%;flex-shrink:0}.notice span:last-child{margin-left:auto;color:#578d80}.grid{display:grid;gap:16px}.kpis{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:18px}.card{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:18px;min-width:0;box-shadow:0 2px 5px #18223004}.kpi-top{display:flex;align-items:center;justify-content:space-between;color:var(--muted);font-size:12px}.kpi-icon{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;background:#edf8f5;color:var(--green);font-size:16px}.kpi-value{font-size:25px;font-weight:800;letter-spacing:-.7px;margin:13px 0 8px}.kpi-foot{font-size:11px;color:var(--muted);display:flex;gap:6px;align-items:center}.up{color:var(--green);font-weight:800}.down{color:var(--red);font-weight:800}.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.section-head h2{font-size:15px;margin:0}.section-head p{font-size:11px;color:var(--muted);margin:5px 0 0}.content-grid{grid-template-columns:minmax(0,1.65fr) minmax(280px,1fr);margin-bottom:18px}.chart-card{min-height:300px}.legend{display:flex;gap:15px;font-size:11px;color:var(--muted)}.legend i{display:inline-block;width:8px;height:8px;border-radius:3px;margin-right:5px}.chart{width:100%;height:210px;display:block}.chart text{font-family:inherit;fill:#8b95a5;font-size:10px}.insight-list{display:grid;gap:14px}.insight{display:flex;gap:11px}.insight-icon{width:31px;height:31px;border-radius:9px;display:grid;place-items:center;flex-shrink:0;background:#eaf8f4;color:#15856b}.insight-icon.warn{background:#fff4e5;color:#b87318}.insight-icon.blue{background:#edf2ff;color:#4776e6}.insight b{display:block;font-size:12px;margin-bottom:4px}.insight p{margin:0;color:var(--muted);font-size:11px;line-height:1.55}.bottom-grid{grid-template-columns:minmax(0,1.25fr) minmax(280px,1fr)}table{border-collapse:collapse;width:100%;font-size:11px}th{text-align:left;color:#8b95a5;font-weight:600;border-bottom:1px solid var(--line);padding:10px 7px}td{padding:12px 7px;border-bottom:1px solid #f0f2f6}tbody tr:last-child td{border-bottom:0}.product{display:flex;align-items:center;gap:8px;font-weight:700}.prod-dot{width:27px;height:27px;border-radius:8px;background:#edf2ff;color:#4776e6;display:grid;place-items:center}.pill{font-size:10px;font-weight:700;padding:5px 8px;border-radius:20px;background:#e6f7f0;color:#16856b}.pill.warn{background:#fff2df;color:#b87318}.pill.low{background:#fcebed;color:#c34d59}.progress{height:5px;background:#eef1f5;border-radius:8px;overflow:hidden;margin-top:5px}.progress span{height:100%;display:block;background:var(--teal);border-radius:8px}.upload-panel{border:1.5px dashed #c9d4e2;border-radius:12px;padding:17px;text-align:center;color:var(--muted);font-size:11px;margin-top:14px}.upload-panel strong{display:block;color:#344054;margin:7px}.upload-panel input{max-width:100%;font-size:11px}.tabpage{display:none}.tabpage.active{display:block}.module-intro{background:linear-gradient(120deg,#eaf8f4,#f0f4ff);border:1px solid #d9eee9;border-radius:15px;padding:22px;margin-bottom:18px}.module-intro h2{margin:0 0 8px;font-size:18px}.module-intro p{font-size:13px;color:#5f6c7d;line-height:1.6;margin:0;max-width:750px}.filters{display:flex;gap:10px;flex-wrap:wrap}.filters select,.filters input{border:1px solid var(--line);border-radius:8px;background:white;padding:9px 11px;font-size:12px;color:#475467}.sim-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.field label{display:block;color:var(--muted);font-size:11px;margin-bottom:8px}.field input{width:100%;accent-color:var(--teal)}.field strong{display:block;font-size:18px;margin-bottom:8px}.resultbox{background:#f6fbf9;border:1px solid #d9eee8;border-radius:12px;padding:15px}.resultbox small{color:var(--muted);font-size:11px}.resultbox strong{display:block;font-size:20px;margin:7px 0}.chatbox{display:flex;gap:9px;margin-top:15px}.chatbox input{flex:1;min-width:0;border:1px solid var(--line);border-radius:9px;padding:12px;font-size:12px}.chat-answer{background:#f6f8fb;border-radius:10px;padding:13px;font-size:12px;color:#4c5869;line-height:1.6;margin-top:12px;display:none}.footer{font-size:10px;color:#9aa3b2;text-align:center;padding:20px 0 0}
+@media(max-width:1000px){.app{grid-template-columns:205px 1fr}.main{padding:22px 18px}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.content-grid,.bottom-grid{grid-template-columns:1fr}.sim-grid{grid-template-columns:1fr}}
+@media(max-width:650px){.app{display:block}.sidebar{padding:12px;gap:12px}.brand{padding:0 5px}.nav-label,.side-bottom{display:none}.nav{display:flex;overflow:auto;gap:4px}.nav button{white-space:nowrap;padding:9px 10px;font-size:11px}.main{padding:18px 12px}.topbar{align-items:flex-start}.topbar h1{font-size:22px}.actions .btn{display:none}.kpis{gap:9px}.card{padding:13px}.kpi-value{font-size:21px}.kpi-top{font-size:10px}.kpi-foot{font-size:10px}.notice{align-items:flex-start}.notice span:last-child{display:none}.content-grid,.bottom-grid{gap:10px}.chart-card{min-height:260px}.section-head{align-items:flex-start}.legend{display:none}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="logo">A</div><div><strong>Analytica AI</strong><small>BUSINESS INTELLIGENCE</small></div></div>
+  <div><div class="nav-label">WORKSPACE</div><nav class="nav" id="nav">
+    <button class="active" data-page="overview"><span class="ico">▦</span> Overview</button>
+    <button data-page="sales"><span class="ico">↗</span> Sales Analysis</button>
+    <button data-page="product"><span class="ico">◇</span> Menu Engineering</button>
+    <button data-page="price"><span class="ico">％</span> Price Simulator</button>
+    <button data-page="forecast"><span class="ico">⌁</span> Forecast & Budget</button>
+    <button data-page="finance"><span class="ico">▤</span> Finance & Cost</button>
+    <button data-page="custom"><span class="ico">✳</span> Ask Your Data</button>
+  </nav></div>
+  <div class="side-bottom"><b>✦ AI Analyst</b><br>Insight demo mode aktif. Import file untuk mulai mengeksplorasi data bisnis Anda.</div>
+</aside>
+<main class="main">
+  <header class="topbar">
+    <div><div class="eyebrow">BUSINESS OVERVIEW / 2026</div><h1 id="page-title">Good afternoon, Analyst 👋</h1><div class="subtitle" id="page-subtitle">Berikut ringkasan performa bisnis Anda.</div></div>
+    <div class="actions"><button class="btn" onclick="resetDemo()">↻ Reset demo</button><button class="btn primary" onclick="document.getElementById('fileInput').click()">＋ Import data</button><div class="avatar">BA</div></div>
+  </header>
+  <div class="notice"><span class="dot"></span><div><strong>Demo dashboard</strong> — data yang tampil adalah data simulasi. Import file CSV untuk melihat ringkasan sederhana dari data Anda.</div><span id="fileStatus">● Demo data</span></div>
+  <section class="tabpage active" id="page-overview">
+    <div class="grid kpis">
+      <div class="card"><div class="kpi-top">Total Sales <span class="kpi-icon">↗</span></div><div class="kpi-value" id="salesKpi">Rp485,2 jt</div><div class="kpi-foot"><span class="down">↓ 8,2%</span> dibanding periode lalu</div></div>
+      <div class="card"><div class="kpi-top">Units Sold <span class="kpi-icon">▤</span></div><div class="kpi-value" id="qtyKpi">32.450</div><div class="kpi-foot"><span class="up">↑ 3,5%</span> dibanding periode lalu</div></div>
+      <div class="card"><div class="kpi-top">Gross Profit <span class="kpi-icon">◈</span></div><div class="kpi-value" id="gpKpi">Rp298,4 jt</div><div class="kpi-foot"><span class="down">↓ 4,1%</span> dibanding periode lalu</div></div>
+      <div class="card"><div class="kpi-top">Avg. Selling Price <span class="kpi-icon">⌁</span></div><div class="kpi-value" id="aspKpi">Rp14.952</div><div class="kpi-foot"><span class="down">↓ 11,3%</span> dibanding periode lalu</div></div>
+    </div>
+    <div class="grid content-grid">
+      <div class="card chart-card"><div class="section-head"><div><h2>Sales Performance</h2><p>Tren penjualan bulanan</p></div><div class="legend"><span><i style="background:#18a889"></i>Sales</span><span><i style="background:#dceee9"></i>Previous period</span></div></div>
+        <svg class="chart" viewBox="0 0 620 230" preserveAspectRatio="none" aria-label="Sales chart">
+          <defs><linearGradient id="area" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#18a889" stop-opacity=".2"/><stop offset="1" stop-color="#18a889" stop-opacity="0"/></linearGradient></defs>
+          <g stroke="#edf0f4" stroke-width="1"><line x1="40" y1="25" x2="600" y2="25"/><line x1="40" y1="70" x2="600" y2="70"/><line x1="40" y1="115" x2="600" y2="115"/><line x1="40" y1="160" x2="600" y2="160"/><line x1="40" y1="205" x2="600" y2="205"/></g>
+          <g><text x="2" y="29">60 jt</text><text x="2" y="74">45 jt</text><text x="2" y="119">30 jt</text><text x="2" y="164">15 jt</text><text x="17" y="209">0</text></g>
+          <path d="M40 117 L90 95 L140 105 L190 65 L240 80 L290 49 L340 69 L390 40 L440 62 L490 77 L540 54 L590 90 L590 205 L40 205 Z" fill="url(#area)"/>
+          <path d="M40 117 L90 95 L140 105 L190 65 L240 80 L290 49 L340 69 L390 40 L440 62 L490 77 L540 54 L590 90" fill="none" stroke="#18a889" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <g fill="#fff" stroke="#18a889" stroke-width="2"><circle cx="40" cy="117" r="3"/><circle cx="90" cy="95" r="3"/><circle cx="140" cy="105" r="3"/><circle cx="190" cy="65" r="3"/><circle cx="240" cy="80" r="3"/><circle cx="290" cy="49" r="3"/><circle cx="340" cy="69" r="3"/><circle cx="390" cy="40" r="3"/><circle cx="440" cy="62" r="3"/><circle cx="490" cy="77" r="3"/><circle cx="540" cy="54" r="3"/><circle cx="590" cy="90" r="3"/></g>
+          <g text-anchor="middle"><text x="40" y="224">Jan</text><text x="90" y="224">Feb</text><text x="140" y="224">Mar</text><text x="190" y="224">Apr</text><text x="240" y="224">May</text><text x="290" y="224">Jun</text><text x="340" y="224">Jul</text><text x="390" y="224">Aug</text><text x="440" y="224">Sep</text><text x="490" y="224">Oct</text><text x="540" y="224">Nov</text><text x="590" y="224">Dec</text></g>
+        </svg>
+      </div>
+      <div class="card"><div class="section-head"><div><h2>AI Business Insights</h2><p>Temuan utama dari data demo</p></div><span class="pill">AI Preview</span></div>
+        <div class="insight-list">
+          <div class="insight"><div class="insight-icon warn">↘</div><div><b>Sales melemah, Qty meningkat</b><p>Average selling price turun. Periksa diskon dan pergeseran mix produk sebelum menyimpulkan penyebab.</p></div></div>
+          <div class="insight"><div class="insight-icon">✦</div><div><b>Americano menjadi volume driver</b><p>Produk dengan volume tinggi dapat menjadi peluang bundling untuk meningkatkan nilai transaksi.</p></div></div>
+          <div class="insight"><div class="insight-icon blue">◎</div><div><b>Evaluasi margin menu</b><p>Prioritaskan pengecekan cost dan gross margin pada produk dengan sales besar.</p></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="grid bottom-grid">
+      <div class="card"><div class="section-head"><div><h2>Top Performing Products</h2><p>Kontributor sales terbesar</p></div><button class="btn" onclick="showPage('product')">Lihat detail →</button></div>
+        <table><thead><tr><th>PRODUCT</th><th>QTY</th><th>SALES</th><th>CONTRIBUTION</th></tr></thead><tbody id="topProducts">
+          <tr><td><div class="product"><span class="prod-dot">☕</span>Iced Americano</div></td><td>6.420</td><td>Rp160,5 jt</td><td><span class="pill">33,1%</span></td></tr>
+          <tr><td><div class="product"><span class="prod-dot">◉</span>Cafe Latte</div></td><td>4.120</td><td>Rp131,8 jt</td><td><span class="pill">27,2%</span></td></tr>
+          <tr><td><div class="product"><span class="prod-dot">❋</span>Matcha Latte</div></td><td>2.980</td><td>Rp104,3 jt</td><td><span class="pill warn">21,5%</span></td></tr>
+          <tr><td><div class="product"><span class="prod-dot">▱</span>Croissant</div></td><td>1.820</td><td>Rp40,0 jt</td><td><span class="pill low">8,2%</span></td></tr>
+        </tbody></table>
+      </div>
+      <div class="card"><div class="section-head"><div><h2>Sales by Outlet</h2><p>Distribusi kontribusi</p></div><span class="pill">3 outlets</span></div>
+        <div style="display:grid;gap:16px;margin-top:22px">
+          <div><div style="display:flex;justify-content:space-between;font-size:12px"><b>Jakarta</b><span>Rp212 jt · 44%</span></div><div class="progress"><span style="width:44%"></span></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:12px"><b>Bogor</b><span>Rp165 jt · 34%</span></div><div class="progress"><span style="width:34%;background:#4776e6"></span></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:12px"><b>Bandung</b><span>Rp108 jt · 22%</span></div><div class="progress"><span style="width:22%;background:#f1a84b"></span></div></div>
+        </div>
+        <div class="upload-panel"><strong>⬆ Import data bisnis</strong><span>CSV demo reader aktif · Excel penuh tersedia di versi Python</span><br><input id="fileInput" type="file" accept=".csv" onchange="loadCSV(event)"></div>
+      </div>
+    </div>
+  </section>
+  <section class="tabpage" id="page-sales">
+    <div class="module-intro"><h2>Sales & Performance Analysis</h2><p>Analisis revenue, quantity, average selling price, pertumbuhan, dan performa outlet. Pada prototype HTML ini, data KPI akan dihitung dari CSV yang diimpor bila kolom Sales/Revenue tersedia.</p></div>
+    <div class="grid kpis">
+      <div class="card"><div class="kpi-top">Total Sales <span class="kpi-icon">↗</span></div><div class="kpi-value" id="salesKpi2">Rp485,2 jt</div><div class="kpi-foot">Total revenue terdeteksi</div></div>
+      <div class="card"><div class="kpi-top">Total Qty <span class="kpi-icon">▤</span></div><div class="kpi-value" id="qtyKpi2">32.450</div><div class="kpi-foot">Total unit terjual</div></div>
+      <div class="card"><div class="kpi-top">ASP <span class="kpi-icon">⌁</span></div><div class="kpi-value" id="aspKpi2">Rp14.952</div><div class="kpi-foot">Sales / Qty</div></div>
+      <div class="card"><div class="kpi-top">Gross Margin <span class="kpi-icon">◈</span></div><div class="kpi-value" id="marginKpi2">61,5%</div><div class="kpi-foot">Butuh kolom cost</div></div>
+    </div>
+    <div class="card"><div class="section-head"><div><h2>Data preview</h2><p>Baris pertama dari file CSV yang dipilih</p></div></div><div style="overflow:auto" id="preview">Import CSV melalui tombol Import data untuk menampilkan data Anda di sini.</div></div>
+  </section>
+  <section class="tabpage" id="page-product">
+    <div class="module-intro"><h2>Product & Menu Engineering</h2><p>Bandingkan volume, sales, dan gross profit untuk membantu mengidentifikasi menu Star, Plowhorse, Puzzle, atau Dog. Klasifikasi memerlukan data Qty dan Cost yang konsisten.</p></div>
+    <div class="card"><div class="section-head"><div><h2>Menu performance matrix</h2><p>Contoh klasifikasi produk (data simulasi)</p></div></div>
+      <table><thead><tr><th>MENU</th><th>QTY</th><th>SALES</th><th>GROSS PROFIT</th><th>CLASSIFICATION</th></tr></thead><tbody>
+      <tr><td>Iced Americano</td><td>6.420</td><td>Rp160,5 jt</td><td>Rp105,8 jt</td><td><span class="pill">Star</span></td></tr>
+      <tr><td>Cafe Latte</td><td>4.120</td><td>Rp131,8 jt</td><td>Rp82,4 jt</td><td><span class="pill">Star</span></td></tr>
+      <tr><td>Matcha Latte</td><td>2.980</td><td>Rp104,3 jt</td><td>Rp55,1 jt</td><td><span class="pill warn">Puzzle</span></td></tr>
+      <tr><td>Croissant</td><td>1.820</td><td>Rp40,0 jt</td><td>Rp16,7 jt</td><td><span class="pill low">Dog</span></td></tr>
+      </tbody></table>
+    </div>
+  </section>
+  <section class="tabpage" id="page-price">
+    <div class="module-intro"><h2>Price Sensitivity Simulator</h2><p>Uji skenario perubahan harga dan asumsi respons Qty. Simulasi ini bukan jaminan bahwa permintaan akan berubah sesuai asumsi.</p></div>
+    <div class="grid sim-grid">
+      <div class="card field"><label>Perubahan harga (%)</label><strong id="priceLabel">−5%</strong><input type="range" id="priceRange" min="-30" max="30" value="-5" oninput="simulate()"><p class="subtitle">Harga naik atau turun dari baseline.</p></div>
+      <div class="card field"><label>Price elasticity (asumsi)</label><strong id="elasticLabel">−1,2</strong><input type="range" id="elasticRange" min="-3" max="0" step=".1" value="-1.2" oninput="simulate()"><p class="subtitle">Contoh −1,2 berarti perubahan harga 1% berasosiasi dengan perubahan Qty sekitar 1,2% secara berlawanan arah.</p></div>
+      <div class="card field"><label>Cost ratio (% Sales)</label><strong id="costLabel">35%</strong><input type="range" id="costRange" min="0" max="100" value="35" oninput="simulate()"><p class="subtitle">Asumsi proporsi biaya variabel.</p></div>
+    </div>
+    <div class="grid sim-grid" style="margin-top:16px">
+      <div class="resultbox"><small>Estimasi Qty</small><strong id="simQty">34.394</strong><span class="up" id="simQtyChange">+6,0%</span></div>
+      <div class="resultbox"><small>Estimasi Sales</small><strong id="simSales">Rp485,2 jt</strong><span id="simSalesChange">+0,7%</span></div>
+      <div class="resultbox"><small>Estimasi Gross Profit</small><strong id="simGP">Rp298,4 jt</strong><span id="simGPChange">Perubahan skenario</span></div>
+    </div>
+  </section>
+  <section class="tabpage" id="page-forecast">
+    <div class="module-intro"><h2>Forecasting & Budget</h2><p>Baseline forecast untuk perencanaan awal. Model produksi sebaiknya diuji dengan backtesting dan memperhitungkan seasonality, promo, harga, serta kalender bisnis.</p></div>
+    <div class="card"><div class="section-head"><div><h2>Monthly sales outlook</h2><p>Ilustrasi aktual dan forecast</p></div><span class="pill warn">Baseline model</span></div>
+      <table><thead><tr><th>PERIOD</th><th>ACTUAL / FORECAST</th><th>STATUS</th></tr></thead><tbody>
+      <tr><td>Sep 2026</td><td>Rp43,5 jt</td><td><span class="pill">Actual</span></td></tr>
+      <tr><td>Oct 2026</td><td>Rp39,8 jt</td><td><span class="pill">Actual</span></td></tr>
+      <tr><td>Nov 2026</td><td>Rp42,1 jt</td><td><span class="pill">Actual</span></td></tr>
+      <tr><td>Dec 2026</td><td>Rp41,8 jt</td><td><span class="pill warn">Forecast</span></td></tr>
+      <tr><td>Jan 2027</td><td>Rp41,8 jt</td><td><span class="pill warn">Forecast</span></td></tr>
+      <tr><td>Feb 2027</td><td>Rp41,8 jt</td><td><span class="pill warn">Forecast</span></td></tr>
+      </tbody></table>
+    </div>
+  </section>
+  <section class="tabpage" id="page-finance">
+    <div class="module-intro"><h2>Finance & Cost Analysis</h2><p>Ringkasan revenue, cost, gross profit, dan gross margin. Pastikan definisi biaya, pajak, diskon, serta periode pelaporan konsisten sebelum dibandingkan.</p></div>
+    <div class="grid kpis">
+      <div class="card"><div class="kpi-top">Revenue <span class="kpi-icon">↗</span></div><div class="kpi-value" id="finSales">Rp485,2 jt</div></div>
+      <div class="card"><div class="kpi-top">Cost <span class="kpi-icon">▤</span></div><div class="kpi-value" id="finCost">Rp186,8 jt</div></div>
+      <div class="card"><div class="kpi-top">Gross Profit <span class="kpi-icon">◈</span></div><div class="kpi-value" id="finGP">Rp298,4 jt</div></div>
+      <div class="card"><div class="kpi-top">Gross Margin <span class="kpi-icon">％</span></div><div class="kpi-value" id="finMargin">61,5%</div></div>
+    </div>
+    <div class="card"><h2 style="font-size:14px">Checklist analisis biaya</h2><p class="subtitle" style="line-height:1.8">• Bandingkan COGS per produk dan outlet.<br>• Cari kenaikan cost ratio dari waktu ke waktu.<br>• Pisahkan biaya tetap dan variabel bila tersedia.<br>• Bandingkan actual vs budget dengan definisi yang sama.</p></div>
+  </section>
+  <section class="tabpage" id="page-custom">
+    <div class="module-intro"><h2>Ask Your Data</h2><p>Ajukan pertanyaan bisnis dalam bahasa sehari-hari. Prototype ini memberi respons demo; integrasi AI sesungguhnya memerlukan model AI/API atau model lokal.</p></div>
+    <div class="card"><div class="section-head"><div><h2>Business Analyst Copilot</h2><p>Tanyakan sesuatu tentang data Anda</p></div><span class="pill">Preview</span></div>
+      <div class="filters"><select id="metric"><option value="Sales">Sales</option><option value="Qty">Qty</option><option value="Cost">Cost</option><option value="Gross Profit">Gross Profit</option></select><select id="group"><option value="Outlet">Outlet</option><option value="Item">Item</option><option value="Month">Month</option></select></div>
+      <div class="chatbox"><input id="question" placeholder="Contoh: produk mana yang sales-nya paling tinggi?"><button class="btn primary" onclick="askDemo()">Analisis →</button></div><div id="answer" class="chat-answer"></div>
+    </div>
+  </section>
+  <div class="footer">Analytica AI · HTML Prototype · Data demo tidak mewakili performa bisnis aktual.</div>
+</main>
+</div>
+<script>
+const titles={overview:["Good afternoon, Analyst 👋","Berikut ringkasan performa bisnis Anda."],sales:["Sales & Performance Analysis","Pahami tren revenue, volume, dan harga rata-rata."],product:["Product & Menu Engineering","Temukan produk unggulan dan peluang perbaikan menu."],price:["Price Sensitivity Simulator","Uji dampak perubahan harga dengan asumsi yang dapat diubah."],forecast:["Forecasting & Budget","Lihat proyeksi awal untuk membantu perencanaan."],finance:["Finance & Cost Analysis","Pantau biaya dan profitabilitas."],custom:["Ask Your Data","Tanyakan pertanyaan bisnis dan eksplorasi metrik."]};
+document.querySelectorAll("#nav button").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
+function showPage(page){document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===page));document.querySelectorAll(".tabpage").forEach(p=>p.classList.toggle("active",p.id==="page-"+page));document.getElementById("page-title").textContent=titles[page][0];document.getElementById("page-subtitle").textContent=titles[page][1];window.scrollTo({top:0,behavior:"smooth"});}
+const base={sales:485200000,qty:32450,cost:186800000,rows:[]};
+let current={...base};
+function money(n){return "Rp"+Math.round(n).toLocaleString("id-ID");}
+function compact(n){if(Math.abs(n)>=1e9)return "Rp"+(n/1e9).toLocaleString("id-ID",{maximumFractionDigits:1})+" M";if(Math.abs(n)>=1e6)return "Rp"+(n/1e6).toLocaleString("id-ID",{maximumFractionDigits:1})+" jt";return money(n);}
+function fmt(n){return Math.round(n).toLocaleString("id-ID");}
+function updateKPIs(){let asp=current.qty?current.sales/current.qty:0,gp=current.sales-current.cost,margin=current.sales?gp/current.sales:0;["salesKpi","salesKpi2","finSales"].forEach(id=>document.getElementById(id).textContent=compact(current.sales));["qtyKpi","qtyKpi2"].forEach(id=>document.getElementById(id).textContent=fmt(current.qty));document.getElementById("aspKpi").textContent=money(asp);document.getElementById("aspKpi2").textContent=money(asp);document.getElementById("gpKpi").textContent=compact(gp);document.getElementById("finCost").textContent=compact(current.cost);document.getElementById("finGP").textContent=compact(gp);document.getElementById("finMargin").textContent=(margin*100).toLocaleString("id-ID",{maximumFractionDigits:1})+"%";document.getElementById("marginKpi2").textContent=(margin*100).toLocaleString("id-ID",{maximumFractionDigits:1})+"%";simulate();}
+function simulate(){const p=Number(document.getElementById("priceRange").value),e=Number(document.getElementById("elasticRange").value),cr=Number(document.getElementById("costRange").value);document.getElementById("priceLabel").textContent=(p>0?"+":"")+p+"%";document.getElementById("elasticLabel").textContent=e.toLocaleString("id-ID",{maximumFractionDigits:1});document.getElementById("costLabel").textContent=cr+"%";const qChange=-e*p,newQty=current.qty*Math.max(0,1+qChange/100),newSales=current.sales*(1+p/100)*(current.qty?newQty/current.qty:0),baseCost=current.sales*cr/100,newCost=baseCost*(current.qty?newQty/current.qty:0),baseGP=current.sales-baseCost,newGP=newSales-newCost;document.getElementById("simQty").textContent=fmt(newQty);document.getElementById("simQtyChange").textContent=(qChange>=0?"+":"")+qChange.toLocaleString("id-ID",{maximumFractionDigits:1})+"%";document.getElementById("simSales").textContent=compact(newSales);document.getElementById("simSalesChange").textContent=(current.sales?(newSales/current.sales-1)*100:0).toLocaleString("id-ID",{signDisplay:"always",maximumFractionDigits:1})+"% vs baseline";document.getElementById("simGP").textContent=compact(newGP);document.getElementById("simGPChange").textContent=(newGP-baseGP>=0?"+":"")+compact(newGP-baseGP)+" vs baseline";}
+function resetDemo(){current={...base};document.getElementById("fileStatus").textContent="● Demo data";document.getElementById("preview").innerHTML="Import CSV melalui tombol Import data untuk menampilkan data Anda di sini.";updateKPIs();}
+function loadCSV(event){const file=event.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=e=>{const lines=e.target.result.trim().split(/\r?\n/);if(lines.length<2){alert("CSV tidak berisi data.");return;}const parseLine=line=>line.split(",").map(x=>x.trim().replace(/^"|"$/g,""));const headers=parseLine(lines[0]);const rows=lines.slice(1).map(l=>parseLine(l));current.rows=rows.map(r=>Object.fromEntries(headers.map((h,i)=>[h,r[i]??""])));const norm=s=>String(s||"").toLowerCase().replace(/[^a-z0-9]/g,"");const find=names=>headers.find(h=>names.includes(norm(h)));const salesKey=find(["sales","revenue","netsales","subtotal","amount"]),qtyKey=find(["qty","quantity","units","jumlah"]),costKey=find(["cost","cogs","hpp","totalcost","costamount"]);const sum=key=>key?current.rows.reduce((a,r)=>a+(Number(String(r[key]||"").replace(/[^\d.-]/g,""))||0),0):null;const sales=sum(salesKey),qty=sum(qtyKey),cost=sum(costKey);if(salesKey)current.sales=sales;if(qtyKey)current.qty=qty;if(costKey)current.cost=cost;else if(salesKey)current.cost=current.sales*.385;document.getElementById("fileStatus").textContent="● "+file.name;document.querySelector(".notice div").innerHTML="<strong>File berhasil dibaca</strong> — "+file.name+" · "+rows.length+" baris. Pastikan kolom yang terdeteksi benar.";document.getElementById("preview").innerHTML=tableHTML(headers,rows.slice(0,8));updateKPIs();showPage("sales");};reader.readAsText(file);}
+function tableHTML(headers,rows){return "<table><thead><tr>"+headers.map(h=>"<th>"+escapeHTML(h)+"</th>").join("")+"</tr></thead><tbody>"+rows.map(r=>"<tr>"+headers.map((h,i)=>"<td>"+escapeHTML(r[i]||"")+"</td>").join("")+"</tr>").join("")+"</tbody></table>";}
+function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function askDemo(){const q=document.getElementById("question").value.trim(),metric=document.getElementById("metric").value,group=document.getElementById("group").value,box=document.getElementById("answer");box.style.display="block";if(!q){box.textContent="Masukkan pertanyaan bisnis terlebih dahulu.";return;}if(current.rows.length){box.textContent="File CSV berhasil dimuat. Untuk menjawab '"+q+"', pilih metrik "+metric+" dan dimensi "+group+". Prototype HTML ini belum menjalankan AI atau pengelompokan otomatis penuh; versi Python dapat melakukan analisis agregasi yang lebih lengkap."; }else{box.textContent="Insight demo: untuk menjawab '"+q+"', analisis "+metric+" berdasarkan "+group+". Dalam versi AI berikutnya, sistem akan menghitung data aktual, menjelaskan temuan dengan angka pendukung, dan membedakan fakta dari dugaan. Saat ini jawaban ini masih simulasi."}}
+updateKPIs();
+</script>
+</body>
+</html>
